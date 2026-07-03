@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>원점수 계산기</title>
+
+<style>
+body{
+    font-family: Arial, sans-serif;
+    background:#f4f4f4;
+    margin:0;
+    padding:20px;
+}
+
+.container{
+    max-width:500px;
+    margin:auto;
+    background:white;
+    padding:20px;
+    border-radius:15px;
+    box-shadow:0 0 10px rgba(0,0,0,0.15);
+}
+
+h1{
+    text-align:center;
+}
+
+input{
+    width:100%;
+    padding:10px;
+    margin:8px 0;
+    font-size:16px;
+    box-sizing:border-box;
+}
+
+button{
+    width:100%;
+    padding:12px;
+    font-size:18px;
+    background:#4CAF50;
+    color:white;
+    border:none;
+    border-radius:8px;
+}
+
+button:hover{
+    background:#45a049;
+}
+
+table{
+    width:100%;
+    margin-top:20px;
+    border-collapse:collapse;
+}
+
+th,td{
+    border:1px solid #ddd;
+    padding:10px;
+    text-align:center;
+}
+
+th{
+    background:#4CAF50;
+    color:white;
+}
+</style>
+
+</head>
+<body>
+
+<div class="container">
+
+<h1>원점수 계산기</h1>
+
+<input id="a" type="number" placeholder="지필고사 반영비율 (%)">
+
+<input id="c" type="number" placeholder="중간고사 점수">
+
+<input id="d" type="number" placeholder="수행평가 점수">
+
+<button onclick="calculate()">계산하기</button>
+
+<div id="result"></div>
+
+</div>
+
+<script>
+
+function need(limit,a,c,d){
+
+let x=(limit-d-c*a/100)/(a/100);
+
+if(x<=0) return "이미 달성";
+if(x>100) return "불가능";
+
+return Math.ceil(x)+"점 이상";
+}
+
+function calculate(){
+
+let a=parseFloat(document.getElementById("a").value);
+let c=parseFloat(document.getElementById("c").value);
+let d=parseFloat(document.getElementById("d").value);
+
+if(isNaN(a)||isNaN(c)||isNaN(d)){
+alert("모든 값을 입력하세요.");
+return;
+}
+
+document.getElementById("result").innerHTML=`
+<table>
+<tr>
+<th>등급</th>
+<th>기말 최소 점수</th>
+</tr>
+
+<tr>
+<td>A (89.5↑)</td>
+<td>${need(89.5,a,c,d)}</td>
+</tr>
+
+<tr>
+<td>B (79.5↑)</td>
+<td>${need(79.5,a,c,d)}</td>
+</tr>
+
+<tr>
+<td>C (69.5↑)</td>
+<td>${need(69.5,a,c,d)}</td>
+</tr>
+
+<tr>
+<td>D (59.5↑)</td>
+<td>${need(59.5,a,c,d)}</td>
+</tr>
+
+<tr>
+<td>E (49.5↑)</td>
+<td>${need(49.5,a,c,d)}</td>
+</tr>
+
+</table>
+`;
+
+}
+
+</script>
+
+</body>
+</html>
